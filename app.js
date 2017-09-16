@@ -25,16 +25,64 @@ function shuffle(array) {
     return array;
 }
 
-// Open the card when clicked
 
-  $( ".card" ).click (function() {
+
+// Logic of the game
+
+ // List of opened cards and matched counts
+
+var openList, matchList
+
+openList = [];
+matchList = [];
+
+$( ".card" ).click (function() {
     //console.log('click');
     console.log(this);
-    $(this).toggleClass('open show');
+    var openCard = $(this).toggleClass('open show').children(); // Opens the card when clicked
+    console.log(openCard);
+    openList.push(openCard); // Add the card opened to the list of open cards
+    console.log(openList);
+      if ( openList.length > 1) {
+        var guess1 = openList[0];
+        var guess2 = openList[1];
+        console.log(guess1);
+        console.log(guess2);
+        if (guess1 == guess2) {
+          openList[0].removeClass('open show').addClass('match').parent;
+          openList[1].removeClass('open show').addClass('match').parent;
+          matchList.push( openList[0] && openList[1] );
+          console.log(matchList);
+          openList = [];
+        }
+        if (guess1 != guess2) {
+          openList[0].removeClass('open show').parent;
+          openList[1].removeClass('open show').parent;
+          openList = [];
+        }
+      }
+    });
 
-});
+
+/*if matchCnt === 8; wins
+
+/*
+var guess1, guess2
+
 
 // If cards match, lock them in open position
+1. If first guess = second guess, remove 'open show' add 'match' to $('.card').
+2. Else, remove 'open show' from $('.card')
+
+if guess1 = guess2 {
+  $('.card').removeClass('.open show').addClass('match')
+}
+else {
+  $('.card').removeClass('open show')
+}
+*/
+
+
 
 
 
@@ -45,11 +93,11 @@ var allCards = [ 'fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-
 $('.restart').click (function() {
   console.log('click');
   allCards = shuffle(allCards);
-  $('.deck').find('.fa').remove();
+  $('.card').empty();
   for (var i = 0; i < allCards.length; i++) {
-    var card = $('.deck').find('card');
-    $(".card").append($("<i class='" + allCards[i] + "'></i>"));
-    card = $( 'li' ).next( "card" );
+    var card = $( 'deck' ).find('card');
+    card.append( $("<i class='" + allCards[i] + "'></i>") );
+    card = card.next();
   }
 });
 
