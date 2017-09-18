@@ -95,8 +95,7 @@ $('.card').click (function() {
 
 
 // Set timer when player begins the game
-setInterval(function () {
-  $('.timer').text
+
 
 
 
@@ -115,7 +114,10 @@ $('.restart').click (function() {
   for (var i = 0; i < cards.length; i++) {
     $(cards[i]).append('<i class="' + allCards[i] + '"></i>');
   }
-});
+  });
+
+
+
 
 
 
