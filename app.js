@@ -38,50 +38,65 @@ matchList = [];
 
 $( ".card" ).click (function() {
     //console.log('click');
-    console.log(this);
+ //   console.log(this);
     var openCard = $(this).toggleClass('open show').children(); // Opens the card when clicked
-    console.log(openCard);
+ //   console.log(openCard);
     openList.push(openCard); // Add the card opened to the list of open cards
-    console.log(openList);
+ //   console.log(openList);
       if ( openList.length > 1) {
-        var guess1 = openList[0];
-        var guess2 = openList[1];
-        console.log(guess1);
-        console.log(guess2);
+        var guess1 = openList[0].attr("class");
+        var guess2 = openList[1].attr("class");
+
+        console.log(openList[0])
+        console.log(guess1)
+        console.log(openList[1])
+        console.log(guess2)
+     //   console.log(guess1);
+     //   console.log(guess2);
         if (guess1 == guess2) {
-          openList[0].removeClass('open show').addClass('match').parent;
-          openList[1].removeClass('open show').addClass('match').parent;
+          console.log("equal")
+          openList[0].parent().removeClass('open show').addClass('match');
+          openList[1].parent().removeClass('open show').addClass('match');
           matchList.push( openList[0] && openList[1] );
           console.log(matchList);
           openList = [];
         }
         if (guess1 != guess2) {
-          openList[0].removeClass('open show').parent;
-          openList[1].removeClass('open show').parent;
+          // Use setTimeout
+          openList[0].parent().removeClass('open show');
+          openList[1].parent().removeClass('open show');
           openList = [];
         }
+      }
+
+      if ( matchList === 8) {
+        alert('You Won!!');
       }
     });
 
 
-/*if matchCnt === 8; wins
 
-/*
-var guess1, guess2
+var counter = 0;
+$('.container').find('.moves').html(counter);
+// Count the moves and remove the stars accordingly
+$('.card').click (function() {
+  counter = counter + 1
+  $('.container').find('.moves').html(counter);
+  if (counter > 8) {
+    $('.stars').find('#1').remove();
+  }
+  if (counter > 14) {
+    $('.stars').find('#2').remove();
+  }
+  if (counter > 22) {
+    $('.stars').find('#3').remove();
+  }
+});
 
 
-// If cards match, lock them in open position
-1. If first guess = second guess, remove 'open show' add 'match' to $('.card').
-2. Else, remove 'open show' from $('.card')
-
-if guess1 = guess2 {
-  $('.card').removeClass('.open show').addClass('match')
-}
-else {
-  $('.card').removeClass('open show')
-}
-*/
-
+// Set timer when player begins the game
+setInterval(function () {
+  $('.timer').text
 
 
 
@@ -91,13 +106,14 @@ var allCards = [ 'fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-
 
 // Shuffle the cards by clicking the restart button.
 $('.restart').click (function() {
-  console.log('click');
   allCards = shuffle(allCards);
-  $('.card').empty();
-  for (var i = 0; i < allCards.length; i++) {
-    var card = $( 'deck' ).find('card');
-    card.append( $("<i class='" + allCards[i] + "'></i>") );
-    card = card.next();
+  $('.card').empty().removeClass('open show match');
+  counter = 0
+  $('.container').find('.moves').html(counter);
+  var cards = $('.card');
+  console.log(cards)
+  for (var i = 0; i < cards.length; i++) {
+    $(cards[i]).append('<i class="' + allCards[i] + '"></i>');
   }
 });
 
