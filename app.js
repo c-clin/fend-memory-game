@@ -20,6 +20,8 @@ function startTimer() {
  }, 1000);
 }
 
+var timer = $('.timer').html(timeZero);
+
 // Activate the timer with the first click
 $('.deck').one( 'click', function() {
   startTimer();
@@ -38,6 +40,80 @@ function resetTimer() {
   $('.timer').html(timeZero);
   startTimer();
 };
+
+
+
+// Count the player's moves and remove the stars accordingly
+var counter, theStar;
+counter = 0;
+$('.container').find('.moves').html(counter);
+var numberOfStars = $('.card').click (function() {
+    counter = counter + 1;
+    $('.container').find('.moves').html(counter);
+    if (counter < 21) {
+      theStar = "3 stars"
+    }
+    if (counter > 20) {
+      $('.stars').find('#1').remove();
+      theStar = "2 stars"
+    }
+    if (counter > 25) {
+      $('.stars').find('#2').remove();
+      theStar = "1 star"
+    }
+  });
+
+  // Shuffle function from http://stackoverflow.com/a/2450976
+  function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      while (currentIndex !== 0) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+  }
+
+  // Array of all cards
+  var allCards = [
+    'fa fa-diamond',
+    'fa fa-diamond',
+    'fa fa-paper-plane-o',
+    'fa fa-paper-plane-o',
+    'fa fa-anchor',
+    'fa fa-anchor',
+    'fa fa-bolt',
+    'fa fa-bolt',
+    'fa fa-cube',
+    'fa fa-cube',
+    'fa fa-bicycle',
+    'fa fa-bicycle',
+    'fa fa-bomb',
+    'fa fa-bomb',
+    'fa fa-leaf',
+    'fa fa-leaf'
+    ];
+
+  // Shuffle the cards and restarts the score and timer by clicking the restart button.
+  $('.restart').click (function() {
+    allCards = shuffle(allCards); // Shuffle the array
+    $('.card').removeClass('open show match animated shake jello').empty(); // Empty out old cards
+    counter = 0;
+    $('.container').find('.moves').html(counter); // Restart the number of moves made
+    var cards = $('.card');
+    console.log(cards);
+    for (var i = 0; i < cards.length; i++) { // Add newly shuffled cards to the deck
+      $(cards[i]).append('<i class="' + allCards[i] + '"></i>');
+    }
+    $('.stars').empty().append(' <li><i class="fa fa-star" id="1"></i></li><li><i class="fa fa-star" id="2"></i></li><li><i class="fa fa-star" id="3"></i></li> ');
+    matchList = []; // Reset match list
+    stopTimer();
+    resetTimer();
+  });
 
  // Creates lists to store open cards and matched cards
 var openList, matchList;
@@ -69,80 +145,13 @@ $( ".card" ).click (function() {
           }, 500);
         }
       }
+
       // When player wins
       if (matchList.length == 16) {
         stopTimer();
         setTimeout(function() {
-          alert('Contratulations! You Won!');
+          console.log(timer);
+          alert('Contratulations, you won! Your time was ' + minutes + ":" + seconds + " and your star rating was " + theStar + "! Click the restart button to play again.");
         }, 800);
       }
-});
-
-// Count the player's moves and remove the stars accordingly
-var counter = 0;
-$('.container').find('.moves').html(counter);
-$('.card').click (function() {
-  counter = counter + 1;
-  $('.container').find('.moves').html(counter);
-  if (counter > 20) {
-    $('.stars').find('#1').remove();
-  }
-  if (counter > 30) {
-    $('.stars').find('#2').remove();
-  }
-  if (counter > 40) {
-    $('.stars').find('#3').remove();
-  }
-});
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-// Array of all cards
-var allCards = [
-  'fa fa-diamond',
-  'fa fa-diamond',
-  'fa fa-paper-plane-o',
-  'fa fa-paper-plane-o',
-  'fa fa-anchor',
-  'fa fa-anchor',
-  'fa fa-bolt',
-  'fa fa-bolt',
-  'fa fa-cube',
-  'fa fa-cube',
-  'fa fa-bicycle',
-  'fa fa-bicycle',
-  'fa fa-bomb',
-  'fa fa-bomb',
-  'fa fa-leaf',
-  'fa fa-leaf'
-  ];
-
-// Shuffle the cards and restarts the score and timer by clicking the restart button.
-$('.restart').click (function() {
-  allCards = shuffle(allCards); // Shuffle the array
-  $('.card').removeClass('open show match animated shake jello').empty(); // Empty out old cards
-  counter = 0;
-  $('.container').find('.moves').html(counter); // Restart the number of moves made
-  var cards = $('.card');
-  console.log(cards);
-  for (var i = 0; i < cards.length; i++) { // Add newly shuffled cards to the deck
-    $(cards[i]).append('<i class="' + allCards[i] + '"></i>');
-  }
-  $('.stars').empty().append(' <li><i class="fa fa-star" id="1"></i></li><li><i class="fa fa-star" id="2"></i></li><li><i class="fa fa-star" id="3"></i></li> ');
-  matchList = []; // Reset match list
-  stopTimer();
-  resetTimer();
 });
