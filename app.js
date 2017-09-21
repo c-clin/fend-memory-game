@@ -57,7 +57,7 @@ var numberOfStars = $('.card').click (function() {
       $('.stars').find('#1').remove();
       theStar = "2 stars"
     }
-    if (counter > 25) {
+    if (counter > 30) {
       $('.stars').find('#2').remove();
       theStar = "1 star"
     }
