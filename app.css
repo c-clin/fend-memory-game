@@ -126,3 +126,14 @@ h1 {
 .score-panel .restart:hover {
   -webkit-transform: rotateZ(500deg);
 }
+
+.no-close .ui-dialog-titlebar-close {
+  display:none;
+}
+
+.ui-dialog {
+  background: linear-gradient(110deg, #b8b5c8 0%, #aa7ecd 100%);
+  border-radius: 5px;
+  padding: 20px;
+  border: 1px solid;
+}
