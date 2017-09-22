@@ -12,7 +12,7 @@ There are two sets of 8 different cards in the deck and the player must match al
 
 ### Special Features
 
-The game counts each moves played by the player and the stars on the score panel will decrease accordingly until there is only one star left. A timer is also in place to record the time it takes for the player to finish the game. The restart button can be clicked anytime during the game if player wants to start over or after the game to play again. 
+The game counts each moves played by the player and the stars on the score panel will decrease accordingly until there is only one star left. A timer is also in place to record the time it takes for the player to finish the game. The restart button can be clicked anytime during the game if player wants to start over. 
 
 ### Dependencies
 
