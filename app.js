@@ -98,22 +98,27 @@ var numberOfStars = $('.card').click (function() {
     'fa fa-leaf'
     ];
 
-  // Shuffle the cards and restarts the score and timer by clicking the restart button.
-  $('.restart').click (function() {
-    allCards = shuffle(allCards); // Shuffle the array
-    $('.card').removeClass('open show match animated shake jello').empty(); // Empty out old cards
-    counter = 0;
-    $('.container').find('.moves').html(counter); // Restart the number of moves made
-    var cards = $('.card');
-    console.log(cards);
-    for (var i = 0; i < cards.length; i++) { // Add newly shuffled cards to the deck
-      $(cards[i]).append('<i class="' + allCards[i] + '"></i>');
-    }
-    $('.stars').empty().append(' <li><i class="fa fa-star" id="1"></i></li><li><i class="fa fa-star" id="2"></i></li><li><i class="fa fa-star" id="3"></i></li> ');
-    matchList = []; // Reset match list
-    stopTimer();
-    resetTimer();
-  });
+// Shuffle the cards and restarts the score and timer by clicking the restart button.
+function restart () {
+  allCards = shuffle(allCards); // Shuffle the array
+  $('.card').removeClass('open show match animated shake jello').empty(); // Empty out old cards
+  counter = 0;
+  $('.container').find('.moves').html(counter); // Restart the number of moves made
+  var cards = $('.card');
+  console.log(cards);
+  for (var i = 0; i < cards.length; i++) { // Add newly shuffled cards to the deck
+    $(cards[i]).append('<i class="' + allCards[i] + '"></i>');
+  }
+  $('.stars').empty().append(' <li><i class="fa fa-star" id="1"></i></li><li><i class="fa fa-star" id="2"></i></li><li><i class="fa fa-star" id="3"></i></li> ');
+  matchList = []; // Reset match list
+  stopTimer();
+  resetTimer();
+}
+
+// Call the function when clicking the restart button
+$('.restart').click (function() {
+  restart();
+});
 
  // Creates lists to store open cards and matched cards
 var openList, matchList;
@@ -148,10 +153,27 @@ $( ".card" ).click (function() {
 
       // When player wins
       if (matchList.length == 16) {
+        var winningMessage = 'Your time was ' + minutes + ":" + seconds + " and your star rating was " + theStar + "! Would you like to play again?"
         stopTimer();
+        $('#message').html(winningMessage);
         setTimeout(function() {
-          console.log(timer);
-          alert('Contratulations, you won! Your time was ' + minutes + ":" + seconds + " and your star rating was " + theStar + "! Click the restart button to play again.");
+            $( function() {
+              $( "#dialog" ).dialog({
+                resizable: false,
+                dialogClass: 'no-close',
+                width: 400,
+                modal: true,
+                buttons: {
+                  "Sure!": function() {
+                    restart();
+                    $( this ).dialog( "close" );
+                  },
+                  "No thanks!": function() {
+                    $( this ).dialog( "close" );
+                  }
+                }
+              });
+            });
         }, 800);
       }
 });
