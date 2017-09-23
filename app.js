@@ -121,12 +121,15 @@ $('.restart').click (function() {
 });
 
  // Creates lists to store open cards and matched cards
-var openList, matchList;
-openList = [];
-matchList = [];
+var openList, matchList,
+openList = [],
+matchList = [],
+disableClick = false;
 
 // Logic of the game
 $( ".card" ).click (function() {
+
+  if (!disableClick) {
     var openCard = $(this).toggleClass('open show').children(); // Opens the card when clicked
     openList.push(openCard); // Add the card opened to the list of open cards
       if ( openList.length > 1) {
@@ -141,13 +144,15 @@ $( ".card" ).click (function() {
           openList = []; // Clear the open cards list
         }
         if (guess1 != guess2) { // Cards not matching, flip them back
+          disableClick = true;
           openList[0].parent().addClass('animated shake');
           openList[1].parent().addClass('animated shake');
           setTimeout( function() {
             openList[0].parent().removeClass('open show animted shake');
             openList[1].parent().removeClass('open show animated shake');
             openList = [];
-          }, 500);
+            disableClick = false;
+          }, 700);
         }
       }
 
@@ -176,4 +181,5 @@ $( ".card" ).click (function() {
             });
         }, 800);
       }
+  }
 });
