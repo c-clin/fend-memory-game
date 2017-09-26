@@ -1,6 +1,6 @@
 # Memory Game Project
 
-### This is the last front-end project for the Udacity Intro to Programming class.
+### This is the last front-end project for the Udacity Intro to Programming course.
 
 ## Getting Started
 
