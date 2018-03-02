@@ -19,3 +19,7 @@ The game counts each moves played by the player and the stars on the score panel
 ### Dependencies
 
 The game was built with HTML, CSS, and JavaScript.
+
+### Demo
+* Please click the link below to see a demo of the application.
+* [Demo] (https://chickencat.github.io/fend-memory-game/)
