@@ -1,12 +1,11 @@
 # Memory Game Project
 
-### This is the last front-end project for the Udacity Intro to Programming course.
-
-## Getting Started
+### What It Is
+This app focuses on utilizing DOM manipulation to recreate a simple memory game.
 
 ### Installing
 
-To get started, download the code and decompress the zip file. Then open the the `index.html` file to start playing the game.
+Download the code and decompress the zip file. Then open the the `index.html` file to start playing the game.
 
 ### Play the Game
 
@@ -14,12 +13,16 @@ There are two sets of 8 different cards in the deck and the player must match al
 
 ### Special Features
 
-The game counts each moves played by the player and the stars on the score panel will decrease accordingly until there is only one star left. A timer is also in place to record the time it takes for the player to finish the game. The restart button can be clicked anytime during the game if player wants to start over. 
+* Count the number of player's moves.
+* Stars will decrease accordingly with the number of moves.
+* A timer will record the time it takes for the player to complete the game.
+* Player can restart the game any time with the restart button.
 
 ### Dependencies
 
 The game was built with HTML, CSS, and JavaScript.
 
 ### Demo
+
 * Please click the link below to see a demo of the application.
 * [Demo] (https://chickencat.github.io/fend-memory-game/)
