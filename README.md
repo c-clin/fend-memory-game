@@ -25,4 +25,4 @@ The game was built with HTML, CSS, and JavaScript.
 ### Demo
 
 * Please click the link below to see a demo of the application.
-* [Demo] (https://chickencat.github.io/fend-memory-game/)
+* [Demo] (https://c-clin.github.io/fend-memory-game/)
